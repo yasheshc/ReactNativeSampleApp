@@ -9,7 +9,7 @@ before_install:
   - yes | sdkmanager "platforms;android-23"
   - yes | sdkmanager "build-tools;23.0.1"
   - nvm install 6.9.0 && nvm use 6.9.0
-  - npm install -g "npm@$(jq -r '.engines.npm' package.json)"
+  - npm install -g
 install:
   - npm ci
 script:
