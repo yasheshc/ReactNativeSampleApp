@@ -11,6 +11,6 @@ before_install:
   - nvm install 6.9.0 && nvm use 6.9.0
   - npm install -g
 install:
-  - npm ci
+  - npm i
 script:
   - "./android/gradlew assembleRelease -p android/"
