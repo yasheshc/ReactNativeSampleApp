@@ -1,29 +1,16 @@
-# Hepburn
-language: objective-c
-osx_image: xcode7
-xcode_sdk: iphonesimulator9.0
-
-cache:
-  directories:
-    - node_modules
-    - ios/Pods
-    - ~/.nvm
-
+os: linux
+language: android
+jdk: oraclejdk8
+android:
+  components:
+    - build-tools-23.0.1
+    - android-23
 before_install:
-  - export NVM_DIR=~/.nvm
-  - which nvm || curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
-  - source ~/.nvm/nvm.sh --install
-  - nvm install 4.2.3
-  - brew update
-  - brew reinstall xctool
-  - brew reinstall watchman
-  - npm install
-  - gem install xcpretty
-  - gem install cocoapods
-  - pod install --project-directory=ios
-
-before_script:
-  - npm run compile:test
-
+  - yes | sdkmanager "platforms;android-23"
+  - yes | sdkmanager "build-tools;23.0.1"
+  - nvm install && nvm use
+  - npm install -g "npm@$(jq -r '.engines.npm' package.json)"
+install:
+  - npm ci
 script:
-  - npm test
+  - "./android/gradlew assembleRelease -p android/"
